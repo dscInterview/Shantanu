@@ -23,10 +23,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/demo", (req, res) => {
-  const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"; // Corrected embed URL
-  res.json({
-    videoUrl: videoUrl,
-  });
+  const videoUrl = "https://www.youtube.com/watch?v=BT9h5ifR1tY"; // Corrected embed URL
+  res.redirect(videoUrl);
 });
 
 app.get("/priceRange", (req, res) => {
@@ -62,7 +60,7 @@ app.get("/productDesc", (req, res) => {
 //   .then(() => console.log("connected to mongodb"))
 //   .catch((err) => console.error("Mongodb connection error : ", err));
 
-const port = process.env.PORT || 3000; // Corrected to uppercase "PORT"
+const port = process.env.PORT || 5000; // Corrected to uppercase "PORT"
 app.listen(port, () => {
   console.log("server running on port " + port);
 });
