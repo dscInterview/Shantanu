@@ -1,7 +1,8 @@
 const { exec } = require("child_process");
 
-app.post("/detect", (req, res) => {
+app.post("/analyseImage", (req, res) => {
   const { imagePath } = req.body;
+  console.log(JSON.stringify(req.body));
 
   exec(
     `python3 path/to/yolo_script.py ${imagePath}`,

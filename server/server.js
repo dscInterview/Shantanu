@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const { exec } = require("child_process");
 
 dotenv.config();
 const app = express();
@@ -30,6 +31,26 @@ app.get("/demo", (req, res) => {
 
 app.get("/priceRange", (req, res) => {
   res.json("this is the price");
+});
+
+app.post("/analyseImage", (req, res) => {
+  const { imagePath } = req.body;
+  console.log(JSON.stringify(req.body));
+
+  exec(
+    `python3 path/to/yolo_script.py ${imagePath}`,
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        return res.status(500).send("Error running YOLO model");
+      }
+      if (stderr) {
+        console.error(`Stderr: ${stderr}`);
+        return res.status(500).send("Error in YOLO script");
+      }
+      res.json(JSON.parse(stdout)); // Send YOLO results back to the client
+    }
+  );
 });
 
 app.get("/productDesc", (req, res) => {
